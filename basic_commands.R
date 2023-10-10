@@ -1,0 +1,7 @@
+Auto <- read.table("Auto.data", header =T, na.strings = "?", stringsAsFactors = T)
+attach(Auto)
+plot(horsepower, mpg)
+identify(horsepower, mpg, name)
+summary(Auto)
+summary(mpg)
+summary(name)
