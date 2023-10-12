@@ -55,3 +55,44 @@ vif(m.lm.fit)
 ## rlm: todos preditores - 1 ----
 m.lm.fit <- lm(medv ~ . -age, data = Boston)
 summary(m.lm.fit)
+## Termo de interação ----
+summary(lm(medv ~ lstat*age, data = Boston))
+## Non linear com lm() ----
+### modelo quadratico
+m.lm.fit2 <- lm(medv ~ lstat + I(lstat^2), data=Boston)
+summary(m.lm.fit2)
+## anova ----
+anova(lm.fit, m.lm.fit2)
+### modelo completo apresenta superioridade em relação ao linear simples,
+### evidência de não linearidade entre medv ~ lstat
+par(mfrow=c(2,2))
+plot(m.lm.fit2)
+### modelo cúbico
+?poly
+m.lm.fit5 <- lm(medv ~ poly(lstat,5), data=Boston)
+summary(m.lm.fit5)
+## log do preditor ----
+log.fit.rm <- lm(medv ~ log(rm), data=Boston)
+summary(log.fit.rm)
+plot(log.fit.rm)
+
+# PREDITORES QUALITATIVOS ----
+## Analisar Carseats dataset ----
+head(Carseats)
+?Carseats
+## rlm carseats ----
+rlm.fit <- lm(Sales ~ . + Income:Advertising + Price:Age, data=Carseats)
+summary(rlm.fit)
+## Verificar o código utilizado para variáveis fictícias ----
+contrasts(Carseats$ShelveLoc)
+?contrasts
+# ESCREVENDO FUNCOES ----
+## Criar função:carregar bibliotecas ----
+load_libraries <- function(){
+  library(ISLR2)
+  library(MASS)
+  print("Bibliotecas carregadas!")
+}
+## Verificar/chamar função ----
+load_libraries
+load_libraries()
