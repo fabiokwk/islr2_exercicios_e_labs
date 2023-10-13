@@ -91,4 +91,89 @@ par(mfrow=c(2,2))
 plot(lm_mpg_horsepower)
 #### Baseado no formato de U do gráfico residuals vs fitted, é possível identi-
 #### ficar algum tipo de não linearidade.
+## 9 ----
+### a ----
+pairs(Auto)
+### b ----
+#### Investigar o uso de cor()
+?cor
+#### Limpar o ambiente de trabalho
+rm(list = ls())
+#### Carregar biblioteca
+library(ISLR2)
+#### Encontrar a posição da variável qualitativa 
+colnames(Auto)
+#### subset sem a variável name
+subset_Auto <- Auto[,-9]
+#### Função cor() sem a variável name(-9) 
+cor(subset_Auto)
+### c ----
+lm_mpg_todos <- lm(mpg ~ . , data = subset_Auto)
+summary(lm_mpg_todos)
+###c.i ----
+#### Visto que: F-statistic: 252.4 e p-value: < 2.2e-16. Então, é possível 
+#### concluir que há significância estatística entre os preditores e a resposta
+### c.ii ----
+#### Os preditores com p-values mais baixos são: Weight, year, origin e displacement
+### c.iii ----
+#### Sugere correlação positiva com a resposta (MPG). A cada unidade de aumento em 
+#### year o mpg também aumenta 0.75. Isso mostra que com o passar dos anos os 
+#### carros passaram a percorrer mais distâncias com 1 gallon.
+### d ----
+par(mfrow=c(2,2))
+plot(lm_mpg_todos)
+#### No q-q gráfico é possível observar tendência de linearidade até o ponto 2.
+#### Já no residuals vs fitted values é possível observar leve tendência de 
+#### não linearidade.
+par(mfrow=c(1,1))
+plot(predict(lm_mpg_todos), rstudent(lm_mpg_todos))
+#### Utilizando o gráfico studentized vs predict é possível verificar que alguns
+#### pontos se afastam mais que os demais do valor 0, mostrando que é possível
+#### que haja high leverage entre os preditores.
+### e ----
+#### Primeiro ajuste
+lm_mpg_interaction_1 <- lm(mpg ~ year + horsepower*weight, data = subset_Auto)
+summary(lm_mpg_interaction_1)
+#### Segundo ajuste (melhor)
+lm_mpg_interaction_2 <- lm(mpg ~ .
+                           - displacement 
+                           - acceleration 
+                           + horsepower:weight 
+                           + year:cylinders, 
+                           data = subset_Auto)
+summary(lm_mpg_interaction_2)
+#### year:cylinders e horsepower:weight aparentam ser estatisticamente relevantes
+### f ----
+lm_mpg_interaction_3 <- lm(mpg ~ .
+                           - displacement 
+                           - acceleration 
+                           + horsepower:(weight^2 )
+                           data = subset_Auto)
+summary(lm_mpg_interaction_3)
 
+lm_mpg_interaction_4 <- lm(mpg ~ log(weight) + horsepower*displacement, data = subset_Auto)
+summary(lm_mpg_interaction_1)
+#### Algumas interações foram realizadas. Porém, não foi encontrado um ajuste
+#### melhor do que a interação 2
+## 10 ----
+#### limpar ambiente
+rm(list = ls())
+#### Carregar biblioteca
+library(ISLR2)
+?Carseats
+colnames(Carseats)
+#### a ----
+lm_carseats <- lm(Sales ~ Price + Urban + US, Carseats)
+summary(lm_carseats)
+### b ----
+#### Price: Correlação negativa com Sales, para $1000 a mais espera-se que sales
+#### diminua em 54 unidades, se as demais se mantiverem iguais.
+#### Urban: Essa variável não afeta as vendas. p-value 0.936
+#### US: Espera-se que uma unidade no US venda 1.200 unidades a mais que uma fora
+#### do US.
+### c ----
+#### Sales = 13.043469 -0.054459*Price + 1.200573*US
+### d ----
+#### Para esse modelo a variável Urban deve ser retirada. A hipótese nula deve
+#### ser descartada em favor dos preditores Price e US.
+### e ----
