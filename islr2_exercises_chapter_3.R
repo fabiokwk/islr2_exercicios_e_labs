@@ -1,4 +1,5 @@
 # CONCEPTUAL ----
+library(ISLR2)
 ## 1 ----
 ### Os p-values referente à TV e rádio - table 3.4 - são relevantes <0.0001
 ### Portanto, a hipotse nula, para ambos, pode ser rejeitada. Visto que, a tabela
@@ -87,7 +88,7 @@ predict(lm_mpg_horsepower, data.frame(horsepower=c(98)), interval = 'prediction'
 plot(Auto$horsepower, Auto$mpg)
 abline(lm_mpg_horsepower, col = 'orange4')
 ### c ----
-par(mfrow=c(2,2))
+par(mfrow=c(2,2), mar = c(4, 4, 2, 2))
 plot(lm_mpg_horsepower)
 #### Baseado no formato de U do gráfico residuals vs fitted, é possível identi-
 #### ficar algum tipo de não linearidade.
@@ -147,7 +148,7 @@ summary(lm_mpg_interaction_2)
 lm_mpg_interaction_3 <- lm(mpg ~ .
                            - displacement 
                            - acceleration 
-                           + horsepower:(weight^2 )
+                           + horsepower:(weight^2),
                            data = subset_Auto)
 summary(lm_mpg_interaction_3)
 
@@ -177,3 +178,37 @@ summary(lm_carseats)
 #### Para esse modelo a variável Urban deve ser retirada. A hipótese nula deve
 #### ser descartada em favor dos preditores Price e US.
 ### e ----
+lm_carseats_2 <- lm(Sales ~ Price + US, Carseats)
+summary(lm_carseats_2)
+### f ----
+summary(lm_carseats)
+summary(lm_carseats_2)
+#### Baseado no R-squared de cada modelo é possível perceber que ambos são irrelevantes
+#### pois podem explicar apenas 23.93% da variação em vendas.
+### g ----
+confint(lm_carseats_2, level=0.95)
+### h ----
+par(mfrow=c(2,2), mar = c(4, 4, 2, 2))
+plot(lm_carseats_2)
+## 11 ----
+set.seed(1)
+x <- rnorm(100)
+y <- 2*x+rnorm(100)
+### a ----
+lm_fit_11_a <- lm(y ~ x + 0)
+#### coeficiente, std error, t-statistic and p-value:
+summary(lm_fit_11_a)
+#### O P-value sugere forte relação entre y e x através do modelo em questão
+### b ----
+lm_fit_11_b <- lm(x ~ y + 0)
+#### coeficiente, std error, t-statistic and p-value:
+summary(lm_fit_11_b)
+#### O P-value sugere forte relação entre y e x através do modelo em questão
+### c ----
+#### É possível observar que os dois modelos possuem mesmo R-squared e F-statistic
+#### Porém, o segundo modelo apresente erro padrão menor, isso sugere que possa
+#### ser melhor se comparado com o outro. Ainda, o p-value para as duas opções
+#### é próxima de 0, isso demonstra que em ambas situações existe forte relação
+#### entre resposta e preditor.
+### d ----
+#### Questão não resolvida. Link para uma solução: https://rpubs.com/lmorgan95/ISLR_CH3_Solutions
