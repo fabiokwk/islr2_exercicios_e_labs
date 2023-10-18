@@ -212,3 +212,4 @@ summary(lm_fit_11_b)
 #### entre resposta e preditor.
 ### d ----
 #### Questão não resolvida. Link para uma solução: https://rpubs.com/lmorgan95/ISLR_CH3_Solutions
+### e ----
