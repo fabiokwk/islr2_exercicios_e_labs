@@ -259,6 +259,11 @@ lm.fit <- lm(y~x)
 summary(lm.fit)
 #### Baseado no r-squared é possível afirmar que são estatisticamente relevantes, já que o modelo pode explicar
 #### 77,84% da variação entre os dados. Assim como o p-value sugere forte relação.
-#### f ----
+### f ----
 abline(lm.fit, col = 'lightgreen')
 legend("bottomright", c("regression line"),lwd = 1, col = "lightgreen")
+### g ----
+lm_model <- lm(y ~ x + I(x^2))
+summary(lm_model)
+#### Inserir o termo quadrado não melhora o modelo, segundo p-value
+### h ----
