@@ -211,5 +211,34 @@ summary(lm_fit_11_b)
 #### é próxima de 0, isso demonstra que em ambas situações existe forte relação
 #### entre resposta e preditor.
 ### d ----
-#### Questão não resolvida. Link para uma solução: https://rpubs.com/lmorgan95/ISLR_CH3_Solutions
+#### Link para uma solução: https://rpubs.com/lmorgan95/ISLR_CH3_Solutions
 ### e ----
+#### Link para uma solução: https://rpubs.com/lmorgan95/ISLR_CH3_Solutions
+### f ----
+lm_fit_11_f_yx <- lm(y ~ x)
+lm_fit_11_f_xy <- lm(x ~ y)
+summary(lm_fit_11_f_yx)
+summary(lm_fit_11_f_xy)
+#### É possível obersar que o t-value é o mesmo nas duas ocasiões. Ainda,
+#### há outras compatibilidades: p-value r-squared f-statistc
+## 12 ----
+### a ----
+#### Link para uma solução: https://rpubs.com/ppaquay/65559
+### b ----
+set.seed(7)
+x <- 1:100
+y <- 2*rnorm(100)
+lm_12_a_yx <- lm(y~x + 0)
+lm_12_a_xy <- lm(x~y + 0)
+summary(lm_12_a_yx)
+summary(lm_12_a_xy)
+### c ----
+set.seed(77)
+x2 <- 1:100
+y2 <- 100:1
+lm_12_b_y2x2 <- lm(y2~x2 + 0)
+lm_12_b_x2y2 <- lm(x2~y2 + 0)
+summary(lm_12_b_y2x2)
+summary(lm_12_b_x2y2)
+## 13 ----
+### a ----
