@@ -1,3 +1,4 @@
+install.packages("ISLR2")
 # Carregar bibliotecas ----
 library(MASS)
 library(ISLR2)
