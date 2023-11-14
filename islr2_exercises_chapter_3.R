@@ -242,3 +242,23 @@ summary(lm_12_b_y2x2)
 summary(lm_12_b_x2y2)
 ## 13 ----
 ### a ----
+set.seed(1)
+x <- rnorm(100)
+### b ----
+eps <- rnorm(100, sd = 0.5)
+### c ----
+y <- -1+0.5*x+eps
+length(y)
+#### b0 = -1; b1 = 0.5
+### d ----
+par(mfrow = c(1, 1))
+plot(y~x)
+#### Possível verificar correlação linear, mas com os pontos muito dispersos
+### e ----
+lm.fit <- lm(y~x)
+summary(lm.fit)
+#### Baseado no r-squared é possível afirmar que são estatisticamente relevantes, já que o modelo pode explicar
+#### 77,84% da variação entre os dados. Assim como o p-value sugere forte relação.
+#### f ----
+abline(lm.fit, col = 'lightgreen')
+legend("bottomright", c("regression line"),lwd = 1, col = "lightgreen")
