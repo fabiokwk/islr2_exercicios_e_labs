@@ -1,4 +1,4 @@
-Auto <- read.table("Auto.data", header =T, na.strings = "?", stringsAsFactors = T)
+Auto <- read.table("~/Documentos/islr2_exercicios_e_labs/auto.data", header =T, na.strings = "?", stringsAsFactors = T)
 attach(Auto)
 plot(horsepower, mpg)
 identify(horsepower, mpg, name)
